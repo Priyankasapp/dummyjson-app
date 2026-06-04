@@ -5,7 +5,7 @@ import { Database, Users, FileText, MessageCircle, Package, Search } from "lucid
 import { useState } from "react";
 import { useProduct } from '../context/ProductContext'
 const links = [
-  { label: "Products", path: "/product", icon: Package },
+  { label: "Products", path: "/", icon: Package },
   { label: "Users", path: "/user", icon: Users },
   { label: "Posts", path: "/post", icon: FileText },
  { label: "Comments", path: "/comments", icon:  MessageCircle, },
