@@ -1,5 +1,5 @@
 
-import React,{useEffect} from 'react'
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Product from './pages/Product'
 import User from './pages/User'
@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'
 import StatusCard from './components/StatusCard'
 import { useProduct } from './context/ProductContext'
 import Lenis from 'lenis'
+import ProductDetails from './components/ProductDetails'
 
 const App = () => {
 
@@ -25,6 +26,8 @@ const App = () => {
     fetchUsers();
     fetchPost();
     fetchComments();
+    // These context fetchers are intentionally called once on app load.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
     useEffect(() => {
@@ -51,6 +54,8 @@ const App = () => {
         <div className="mt-8">
            <Routes> 
         <Route path='/' element={<Product/>} />
+        <Route path='/product' element={<Product/>} />
+        <Route path='/product/:productId' element={<ProductDetails />} />
         <Route path='/user' element={<User />} />
         <Route path='/post' element={<Post />} />
         <Route path='/comments' element={<Comments />} />
