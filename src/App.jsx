@@ -28,8 +28,8 @@ const App = () => {
       <Navbar />
       <StatusCard/>
       <Routes> 
-        <Route path='/' element={<h1>Hello</h1>} />
-        <Route path='/product' element={<Product />} />
+        <Route path='/' element={<Product/>} />
+        
         <Route path='/user' element={<User />} />
         <Route path='/post' element={<Post />} />
         <Route path='/comments' element={<Comments />} />
