@@ -26,7 +26,7 @@ const ProductList = () => {
   const openModal = (product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
@@ -35,21 +35,19 @@ const ProductList = () => {
     document.body.style.overflow = "unset";
   };
 
-
-  useEffect(()=>{
-    const handleEsc = (event) =>{
-      if (event.key === 'Escape'){
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
         closeModal();
-      } 
+      }
     };
-    window.addEventListener('keydown', handleEsc);
-    return()=>{
-      window.removeEventListener('keydown', handleEsc);
-      document.body.style.overflow = 'unset';
+    window.addEventListener("keydown", handleEsc);
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "unset";
     };
   }, []);
 
-  
   const handleEdit = (product) => {
     setEditingProduct(product);
   };
@@ -75,7 +73,6 @@ const ProductList = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-7xl mx-auto">
-        
         <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
           Product Management Dashboard
         </h1>
@@ -122,15 +119,15 @@ const ProductList = () => {
                 </div>
 
                 <div className="mt-4 flex gap-2">
-                 <button
-  onClick={(e) => {
-    e.stopPropagation();
-    handleDelete(product.id);
-  }}
-  className="flex-1 bg-red-700 text-white px-3 py-2 rounded hover:bg-red-800 transition-colors text-sm"
->
-  Delete
-</button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(product.id);
+                    }}
+                    className="flex-1 bg-red-700 text-white px-3 py-2 rounded hover:bg-red-800 transition-colors text-sm"
+                  >
+                    Delete
+                  </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -150,88 +147,81 @@ const ProductList = () => {
           <EditProductForm product={editingProduct} onClose={handleCloseEdit} />
         )}
 
-        {/* Product Details Modal */}
-       {/* Product Details Modal */}
-{isModalOpen && selectedProduct && (
-  <div className="fixed inset-0 z-50 overflow-y-auto">
     
-    {/* Backdrop */}
-    <div
-      className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-      onClick={closeModal}
-    ></div>
+        {/* Product Details Modal */}
+        {isModalOpen && selectedProduct && (
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 bg-black/50"
+              onClick={closeModal}
+            ></div>
 
-    {/* Modal */}
-    <div className="flex min-h-full items-center justify-center p-4">
-      <div className="relative bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal */}
+            <div className="flex min-h-full items-center justify-center p-4">
+              <div className="relative bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                {/* Close Button */}
+                <button
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 text-gray-500 hover:text-black"
+                >
+                  ✕
+                </button>
 
-        {/* Close Button */}
-        <button
-          onClick={closeModal}
-          className="absolute top-4 right-4 text-gray-500 hover:text-black"
-        >
-          ✕
-        </button>
+                {/* Product Image */}
+                <img
+                  src={selectedProduct.thumbnail}
+                  alt={selectedProduct.title}
+                  className="w-full h-80 object-containe"
+                />
 
-        {/* Product Image */}
-        <img
-          src={selectedProduct.thumbnail}
-          alt={selectedProduct.title}
-          className="w-full h-80 object-containe"
-        />
+                <div className="p-6">
+                  <h2 className="text-3xl font-bold mb-3">
+                    {selectedProduct.title}
+                  </h2>
 
-        <div className="p-6">
+                  <p className="text-gray-600 mb-4">
+                    {selectedProduct.description}
+                  </p>
 
-          <h2 className="text-3xl font-bold mb-3">
-            {selectedProduct.title}
-          </h2>
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <p className="font-semibold">Price</p>
+                      <p className="text-blue-600 text-lg">
+                        ${selectedProduct.price}
+                      </p>
+                    </div>
 
-          <p className="text-gray-600 mb-4">
-            {selectedProduct.description}
-          </p>
+                    <div>
+                      <p className="font-semibold">Category</p>
+                      <p>{selectedProduct.category}</p>
+                    </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <p className="font-semibold">Rating</p>
+                      <p>⭐ {selectedProduct.rating}</p>
+                    </div>
 
-            <div>
-              <p className="font-semibold">Price</p>
-              <p className="text-blue-600 text-lg">
-                ${selectedProduct.price}
-              </p>
+                    <div>
+                      <p className="font-semibold">Stock</p>
+                      <p>{selectedProduct.stock}</p>
+                    </div>
+
+                    <div>
+                      <p className="font-semibold">Brand</p>
+                      <p>{selectedProduct.brand}</p>
+                    </div>
+
+                    <div>
+                      <p className="font-semibold">SKU</p>
+                      <p>{selectedProduct.sku}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div>
-              <p className="font-semibold">Category</p>
-              <p>{selectedProduct.category}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Rating</p>
-              <p>⭐ {selectedProduct.rating}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Stock</p>
-              <p>{selectedProduct.stock}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Brand</p>
-              <p>{selectedProduct.brand}</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">SKU</p>
-              <p>{selectedProduct.sku}</p>
-            </div>
-
           </div>
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+        )}
       </div>
     </div>
   );

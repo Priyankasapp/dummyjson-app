@@ -9,7 +9,7 @@ import SearchResults from './components/SearchResults'
 import Navbar from './components/Navbar'
 import StatusCard from './components/StatusCard'
 import { useProduct } from './context/ProductContext'
-
+import Lenis from 'lenis'
 
 const App = () => {
 
@@ -25,6 +25,22 @@ const App = () => {
     fetchUsers();
     fetchPost();
     fetchComments();
+  }, []);
+
+    useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      smoothWheel: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
   }, []);
 
   return (
