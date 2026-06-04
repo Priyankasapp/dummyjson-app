@@ -88,13 +88,13 @@ export default function Navbar() {
                 className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 pr-12 outline-none focus:border-violet-500"
               />
 
-              <button
+              {/* <button
                 type="submit"
                 aria-label="Search"
                 className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200"
               >
                 <Search size={18} aria-hidden="true" />
-              </button>
+              </button> */}
             </form>
           </div>
 
