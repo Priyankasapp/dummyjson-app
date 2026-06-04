@@ -2,18 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useProduct } from "../context/ProductContext";
 
 const PostList = () => {
-  const {
-    post,
-    loading,
-    error,
-    fetchPost,
-    totalPost,
-  } = useProduct();
+  const { post, loading, error, fetchPost, totalPost } = useProduct();
 
   const [skip, setSkip] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const limit=20;
+  const limit = 20;
 
   useEffect(() => {
     fetchPost(skip, limit);
@@ -23,27 +17,27 @@ const PostList = () => {
     setSelectedPost(post);
     setIsModalOpen(true);
     // Prevent body scroll when modal is open
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedPost(null);
     // Restore body scroll
-    document.body.style.overflow = 'unset';
+    document.body.style.overflow = "unset";
   };
 
   // Handle escape key press
   useEffect(() => {
     const handleEsc = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         closeModal();
       }
     };
-    window.addEventListener('keydown', handleEsc);
+    window.addEventListener("keydown", handleEsc);
     return () => {
-      window.removeEventListener('keydown', handleEsc);
-      document.body.style.overflow = 'unset';
+      window.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "unset";
     };
   }, []);
 
@@ -56,11 +50,7 @@ const PostList = () => {
   }
 
   if (error) {
-    return (
-      <div className="text-center text-red-500 py-10">
-        Error: {error}
-      </div>
-    );
+    return <div className="text-center text-red-500 py-10">Error: {error}</div>;
   }
 
   return (
@@ -81,9 +71,7 @@ const PostList = () => {
                 {item.title}
               </h2>
 
-              <p className="text-gray-600 mb-4 line-clamp-4">
-                {item.body}
-              </p>
+              <p className="text-gray-600 mb-4 line-clamp-4">{item.body}</p>
 
               <div className="flex flex-wrap gap-2 mb-4">
                 {item.tags?.map((tag, index) => (
@@ -110,7 +98,7 @@ const PostList = () => {
       {isModalOpen && selectedPost && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           {/* Backdrop */}
-          <div 
+          <div
             className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
             onClick={closeModal}
           ></div>
@@ -121,10 +109,22 @@ const PostList = () => {
               {/* Close Button */}
               <button
                 onClick={closeModal}
+                aria-label="Close modal"
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                aria-hidden="true"
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
 
@@ -151,7 +151,9 @@ const PostList = () => {
 
                 {/* Content */}
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-2 text-gray-700">Content</h3>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-700">
+                    Content
+                  </h3>
                   <p className="text-gray-600 leading-relaxed">
                     {selectedPost.body}
                   </p>

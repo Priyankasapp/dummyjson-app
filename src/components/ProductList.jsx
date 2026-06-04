@@ -96,7 +96,7 @@ const ProductList = () => {
               {product.thumbnail && (
                 <img
                   src={product.thumbnail}
-                  alt={product.title}
+                  alt=""
                   className="w-full h-60 w-60 object-containe"
                 />
               )}
@@ -122,21 +122,21 @@ const ProductList = () => {
                 </div>
 
                 <div className="mt-4 flex gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete(product.id);
-                    }}
-                    className="flex-1 bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 transition-colors text-sm"
-                  >
-                    Delete
-                  </button>
+                 <button
+  onClick={(e) => {
+    e.stopPropagation();
+    handleDelete(product.id);
+  }}
+  className="flex-1 bg-red-700 text-white px-3 py-2 rounded hover:bg-red-800 transition-colors text-sm"
+>
+  Delete
+</button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleEdit(product);
                     }}
-                    className="flex-1 bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600 transition-colors text-sm"
+                    className="flex-1 bg-green-700 text-white px-3 py-2 rounded hover:bg-green-800 transition-colors text-sm"
                   >
                     Edit
                   </button>
@@ -177,7 +177,7 @@ const ProductList = () => {
         <img
           src={selectedProduct.thumbnail}
           alt={selectedProduct.title}
-          className="w-full h-100 object-cover"
+          className="w-full h-80 object-containe"
         />
 
         <div className="p-6">

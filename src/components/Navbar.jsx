@@ -51,7 +51,7 @@ export default function Navbar() {
           {/* LOGO */}
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600 text-white">
-              <Database size={18} />
+              <Database size={18} aria-hidden="true" />
             </div>
 
             <h1 className="text-xl font-bold text-slate-900">
@@ -62,7 +62,13 @@ export default function Navbar() {
           {/* DESKTOP SEARCH */}
           <div className="hidden md:block flex-1 max-w-xl">
             <form onSubmit={handleSubmit} className="relative">
+
+              <label htmlFor="desktop-search" className="sr-only">
+                Search products, users and posts
+              </label>
+
               <input
+                id="desktop-search"
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -72,10 +78,12 @@ export default function Navbar() {
 
               <button
                 type="submit"
+                aria-label="Search"
                 className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200"
               >
-                <Search size={18} />
+                <Search size={18} aria-hidden="true" />
               </button>
+
             </form>
           </div>
 
@@ -96,7 +104,7 @@ export default function Navbar() {
                     }`
                   }
                 >
-                  <Icon size={16} />
+                  <Icon size={16} aria-hidden="true" />
                   {link.label}
                 </NavLink>
               );
@@ -105,10 +113,15 @@ export default function Navbar() {
 
           {/* MOBILE MENU BUTTON */}
           <button
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             className="md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            {menuOpen ? (
+              <X size={24} aria-hidden="true" />
+            ) : (
+              <Menu size={24} aria-hidden="true" />
+            )}
           </button>
         </div>
 
@@ -118,7 +131,13 @@ export default function Navbar() {
 
             {/* MOBILE SEARCH */}
             <form onSubmit={handleSubmit} className="relative mb-4">
+
+              <label htmlFor="mobile-search" className="sr-only">
+                Search products, users and posts
+              </label>
+
               <input
+                id="mobile-search"
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -128,10 +147,12 @@ export default function Navbar() {
 
               <button
                 type="submit"
-                className="absolute right-3 top-1/2 -translate-y-1/2"
+                aria-label="Search"
+                className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200"
               >
-                <Search size={18} />
+                <Search size={18} aria-hidden="true" />
               </button>
+
             </form>
 
             {/* MOBILE NAV */}
@@ -145,19 +166,20 @@ export default function Navbar() {
                     to={link.path}
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
-    `flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition ${
-      isActive
-        ? "bg-white shadow text-violet-600"
-        : "text-slate-600 hover:bg-white"
-    }`
+                      `flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition ${
+                        isActive
+                          ? "bg-white shadow text-violet-600"
+                          : "text-slate-600 hover:bg-white"
+                      }`
                     }
                   >
-                    <Icon size={18} />
+                    <Icon size={18} aria-hidden="true" />
                     {link.label}
                   </NavLink>
                 );
               })}
             </nav>
+
           </div>
         )}
       </div>
