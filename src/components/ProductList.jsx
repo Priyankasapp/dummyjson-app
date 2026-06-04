@@ -75,6 +75,7 @@ const ProductList = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-7xl mx-auto">
+        
         <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
           Product Management Dashboard
         </h1>
@@ -96,7 +97,7 @@ const ProductList = () => {
                 <img
                   src={product.thumbnail}
                   alt={product.title}
-                  className="w-full h-58 object-cover"
+                  className="w-full h-60 w-60 object-containe"
                 />
               )}
               <div className="p-3">
