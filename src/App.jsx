@@ -9,7 +9,10 @@ import SearchResults from './components/SearchResults'
 import Navbar from './components/Navbar'
 import StatusCard from './components/StatusCard'
 import { useProduct } from './context/ProductContext'
+
+
 const App = () => {
+
     const {
     fetchProducts,
     fetchUsers,
@@ -23,18 +26,24 @@ const App = () => {
     fetchPost();
     fetchComments();
   }, []);
+
   return (
-    <div>
+    <div className="min-h-screen bg-slate-100">
       <Navbar />
-      <StatusCard/>
-      <Routes> 
+      <main className='max-w-7xl mx-auto px-4 md:px-6 py-6'>
+        <StatusCard/>
+        <div className="mt-8">
+           <Routes> 
         <Route path='/' element={<Product/>} />
-        
         <Route path='/user' element={<User />} />
         <Route path='/post' element={<Post />} />
         <Route path='/comments' element={<Comments />} />
         <Route path='/search' element={<SearchResults />} />
       </Routes>
+        </div>
+     
+      </main>
+      
     </div>
   )
 }
