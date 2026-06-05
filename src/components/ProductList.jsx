@@ -295,7 +295,7 @@ const ProductList = () => {
                     <img
                       src={selectedProduct.thumbnail}
                       alt={selectedProduct.title}
-                      className="w-full h-80 object-cover"
+                      className="w-100 h-96 object-cover ml-40"
                     />
                   </motion.div>
 
