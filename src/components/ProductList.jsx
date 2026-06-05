@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useProduct } from "../context/ProductContext";
+// import { useProduct } from "../context/ProductContext";
+import {useSelector, useDispatch} from "react-redux"
+import {fetchProducts, removeProduct, editProduct} from "../features/products/productSlice";
 import EditProductForm from "./EditForm";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ProductList = () => {
+
+  const dispatch = useDispatch();
+
+  // const {
+  //   products,
+  //   loading,
+  //   error,
+  //   totalProducts,
+  //   fetchProducts,
+  //   removeProduct,
+  //   editProduct,
+  // } = useProduct();
   const {
-    products,
-    loading,
-    error,
-    totalProducts,
-    fetchProducts,
-    removeProduct,
-    editProduct,
-  } = useProduct();
+  products,
+  loading,
+  error,
+  totalProducts,
+} = useSelector((state) => state.products);
 
   const [skip, setSkip] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -20,9 +31,13 @@ const ProductList = () => {
   const [limit] = useState(10);
   const [editingProduct, setEditingProduct] = useState(null);
 
+  // useEffect(() => {
+  //   fetchProducts(skip, limit);
+  // }, [skip]);
+
   useEffect(() => {
-    fetchProducts(skip, limit);
-  }, [skip]);
+  dispatch(fetchProducts({ skip, limit }));
+}, [dispatch, skip, limit]);
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -55,12 +70,14 @@ const ProductList = () => {
 
   const handleCloseEdit = () => {
     setEditingProduct(null);
-    fetchProducts(skip, limit);
+    // fetchProducts(skip, limit);
+    dispatch(fetchProducts({ skip, limit }));
   };
   
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product ?")) {
-      await removeProduct(id);
+      // await removeProduct(id); 
+      await dispatch(removeProduct(id));
     }
   };
 

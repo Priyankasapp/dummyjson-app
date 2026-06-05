@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useProduct } from "../context/ProductContext";
+// import { useProduct } from "../context/ProductContext";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../features/users/userSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const UserList = () => {
-  const { users, loading, error, totalUsers, fetchUsers } = useProduct();
+  // const { users, loading, error, totalUsers, fetchUsers } = useProduct();
+  const dispatch = useDispatch();
+
+const {
+  users,
+  loading,
+  error,
+  totalUsers,
+} = useSelector((state) => state.users);
 
   const [skip, setSkip] = useState(0);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -11,9 +21,18 @@ const UserList = () => {
 
   const limit = 20;
 
+  // useEffect(() => {
+  //   fetchUsers(skip, limit);
+  // }, [skip]);
+
   useEffect(() => {
-    fetchUsers(skip, limit);
-  }, [skip]);
+  dispatch(
+    fetchUsers({
+      skip,
+      limit,
+    })
+  );
+}, [dispatch, skip, limit]);
 
   const openModal = (user) => {
     setSelectedUser(user);

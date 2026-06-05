@@ -10,7 +10,9 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
-import { useProduct } from "../context/ProductContext";
+// import { useProduct } from "../context/ProductContext";
+import { useDispatch } from "react-redux";
+// import { searchAll, clearSearch } from "../features/search/searchSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
@@ -34,9 +36,9 @@ const menuVariants = {
 export default function Navbar() {
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { searchAll, clearSearch } = useProduct();
+  // const { searchAll, clearSearch } = useProduct();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -44,13 +46,13 @@ export default function Navbar() {
     const searchText = query.trim();
 
     if (!searchText) {
-      clearSearch();
-      navigate("/search");
-      return;
-    }
-
-    await searchAll(searchText);
+    dispatch(clearSearch());
     navigate("/search");
+    return;
+  }
+
+     dispatch(searchAll(searchText));
+  navigate("/search");
   };
 
   return (

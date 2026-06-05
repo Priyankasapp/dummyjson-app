@@ -1,18 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { useProduct } from "../context/ProductContext";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "../features/posts/postSlice";
+// import { useProduct } from "../context/ProductContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PostList = () => {
-  const { post, loading, error, fetchPost, totalPost } = useProduct();
+  // const { post, loading, error, fetchPost, totalPost } = useProduct();
+  const dispatch = useDispatch();
+
+const {
+  posts,
+  loading,
+  error,
+  totalPost,
+} = useSelector((state) => state.posts);
 
   const [skip, setSkip] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const limit = 20;
 
+  // useEffect(() => {
+  //   fetchPost(skip, limit);
+  // }, [skip]);
+
   useEffect(() => {
-    fetchPost(skip, limit);
-  }, [skip]);
+  dispatch(
+    fetchPosts({
+      skip,
+      limit,
+    })
+  );
+}, [dispatch, skip, limit]);
 
   const openModal = (post) => {
     setSelectedPost(post);
@@ -171,7 +190,7 @@ const PostList = () => {
           className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence mode="popLayout">
-            {post?.map((item) => (
+            {posts?.map((item) => (
               <motion.div
                 key={item.id}
                 layout

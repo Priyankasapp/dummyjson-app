@@ -1,24 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { useProduct } from "../context/ProductContext";
+// import { useProduct } from "../context/ProductContext";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  fetchComments,
+} from "../features/comments/commentSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CommentList = () => {
-  const {
-    loading,
-    error,
-    comments,
-    totalComments,
-    fetchComments,
-  } = useProduct();
+  // const {
+  //   loading,
+  //   error,
+  //   comments,
+  //   totalComments,
+  //   fetchComments,
+  // } = useProduct();
+
+  const dispatch = useDispatch();
+
+const {
+  loading,
+  error,
+  comments,
+  totalComments,
+} = useSelector(
+  (state) => state.comments
+);
 
   const [skip, setSkip] = useState(0);
   const [selectedComment, setSelectedComment] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const limit = 20;
 
+  // useEffect(() => {
+  //   fetchComments(skip, limit);
+  // }, [skip]);
+
   useEffect(() => {
-    fetchComments(skip, limit);
-  }, [skip]);
+  dispatch(
+    fetchComments({
+      skip,
+      limit,
+    })
+  );
+}, [dispatch, skip, limit]);
 
   const openModal = (comment) => {
     setSelectedComment(comment);

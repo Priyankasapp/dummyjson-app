@@ -1,34 +1,33 @@
+import { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Product from './pages/Product'
-import User from './pages/User'
-import Post from './pages/Post'
-import Comments from './pages/Comments'
-import SearchResults from './components/SearchResults'
-import Navbar from './components/Navbar'
-import StatusCard from './components/StatusCard'
-import { useProduct } from './context/ProductContext'
-import Lenis from 'lenis'
-import ProductDetails from './components/ProductDetails'
+import { fetchProducts } from "./features/products/productSlice";
+import { fetchUsers } from "./features/users/userSlice";
+import { fetchPosts } from "./features/posts/postSlice";
+import { fetchComments } from "./features/comments/commentSlice";
+
+import Product from "./pages/Product";
+import User from "./pages/User";
+import Post from "./pages/Post";
+import Comments from "./pages/Comments";
+import SearchResults from "./components/SearchResults";
+import Navbar from "./components/Navbar";
+import StatusCard from "./components/StatusCard";
+import ProductDetails from "./components/ProductDetails";
+
+import Lenis from "lenis";
+
 
 const App = () => {
+  const dispatch = useDispatch();
 
-    const {
-    fetchProducts,
-    fetchUsers,
-    fetchPost,
-    fetchComments,
-  } = useProduct();
-
-   useEffect(() => {
-    fetchProducts();
-    fetchUsers();
-    fetchPost();
-    fetchComments();
-    // These context fetchers are intentionally called once on app load.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    dispatch(fetchProducts({ skip: 0, limit: 20 }));
+    dispatch(fetchUsers({ skip: 0, limit: 20 }));
+    dispatch(fetchPosts({ skip: 0, limit: 20 }));
+    dispatch(fetchComments({ skip: 0, limit: 20 }));
+  }, [dispatch]);
 
     useEffect(() => {
     const lenis = new Lenis({
