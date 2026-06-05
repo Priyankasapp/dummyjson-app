@@ -1,45 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { useProduct } from '../context/ProductContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+// import { useProduct } from '../context/ProductContext';
+import { useDispatch, useSelector } from "react-redux";
+import { editProduct } from "../features/products/productSlice";
+import { motion, AnimatePresence } from "framer-motion";
 
 const EditProductForm = ({ product, onClose }) => {
-  const { editProduct, loading } = useProduct();
-  
+  // const { editProduct, loading } = useProduct();
+  const dispatch = useDispatch();
+
+  const { loading } = useSelector((state) => state.products);
+
   const [formData, setFormData] = useState({
-    title: '',
-    price: '',
-    description: '',
-    category: '',
-    stock: '',
-    brand: '',
-    thumbnail: ''
+    title: "",
+    price: "",
+    description: "",
+    category: "",
+    stock: "",
+    brand: "",
+    thumbnail: "",
   });
 
   useEffect(() => {
     if (product) {
       setFormData({
-        title: product.title || '',
-        price: product.price || '',
-        description: product.description || '',
-        category: product.category || '',
-        stock: product.stock || '',
-        brand: product.brand || '',
-        thumbnail: product.thumbnail || ''
+        title: product.title || "",
+        price: product.price || "",
+        description: product.description || "",
+        category: product.category || "",
+        stock: product.stock || "",
+        brand: product.brand || "",
+        thumbnail: product.thumbnail || "",
       });
     }
   }, [product]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const updatedData = {
       title: formData.title,
       price: parseFloat(formData.price),
@@ -47,100 +52,105 @@ const EditProductForm = ({ product, onClose }) => {
       category: formData.category,
       stock: parseInt(formData.stock),
       brand: formData.brand,
-      thumbnail: formData.thumbnail
+      thumbnail: formData.thumbnail,
     };
+    try {
+      await dispatch(
+        editProduct({
+          id: product.id,
+          productData: updatedData,
+        }),
+      ).unwrap();
 
-    const success = await editProduct(product.id, updatedData);
-    
-    if (success) {
-      alert('Product updated successfully!');
+      alert("Product updated successfully!");
       onClose();
-    } else {
-      alert('Failed to update product');
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update product");
     }
   };
 
   // Animation variants
   const backdropVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { duration: 0.3 }
+      transition: { duration: 0.3 },
     },
-    exit: { 
+    exit: {
       opacity: 0,
-      transition: { duration: 0.3 }
-    }
+      transition: { duration: 0.3 },
+    },
   };
 
   const modalVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.9, 
-      y: 50 
+    hidden: {
+      opacity: 0,
+      scale: 0.9,
+      y: 50,
     },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
+    visible: {
+      opacity: 1,
+      scale: 1,
       y: 0,
       transition: {
         type: "spring",
         damping: 25,
         stiffness: 300,
         when: "beforeChildren",
-        staggerChildren: 0.05
-      }
+        staggerChildren: 0.05,
+      },
     },
-    exit: { 
-      opacity: 0, 
-      scale: 0.9, 
+    exit: {
+      opacity: 0,
+      scale: 0.9,
       y: 50,
       transition: {
         type: "spring",
         damping: 25,
-        stiffness: 300
-      }
-    }
+        stiffness: 300,
+      },
+    },
   };
 
   const formFieldVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: {
         type: "spring",
         stiffness: 400,
-        damping: 25
-      }
-    }
+        damping: 25,
+      },
+    },
   };
 
   const buttonVariants = {
-    hover: { 
+    hover: {
       scale: 1.02,
       transition: {
         type: "spring",
         stiffness: 400,
-        damping: 10
-      }
+        damping: 10,
+      },
     },
-    tap: { 
-      scale: 0.98 
-    }
+    tap: {
+      scale: 0.98,
+    },
   };
 
   const headerVariants = {
     hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         type: "spring",
         stiffness: 300,
-        damping: 20
-      }
-    }
+        damping: 20,
+      },
+    },
   };
 
   return (
@@ -160,11 +170,11 @@ const EditProductForm = ({ product, onClose }) => {
           className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
         >
           <div className="p-6">
-            <motion.div 
+            <motion.div
               variants={headerVariants}
               className="flex justify-between items-center mb-6"
             >
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
@@ -188,7 +198,10 @@ const EditProductForm = ({ product, onClose }) => {
                   Title *
                 </label>
                 <motion.input
-                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 2px rgba(59,130,246,0.5)" }}
+                  whileFocus={{
+                    scale: 1.01,
+                    boxShadow: "0 0 0 2px rgba(59,130,246,0.5)",
+                  }}
                   type="text"
                   name="title"
                   value={formData.title}
@@ -198,7 +211,7 @@ const EditProductForm = ({ product, onClose }) => {
                 />
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 variants={formFieldVariants}
                 className="grid grid-cols-1 md:grid-cols-2 gap-4"
               >
@@ -207,7 +220,10 @@ const EditProductForm = ({ product, onClose }) => {
                     Price *
                   </label>
                   <motion.input
-                    whileFocus={{ scale: 1.01, boxShadow: "0 0 0 2px rgba(59,130,246,0.5)" }}
+                    whileFocus={{
+                      scale: 1.01,
+                      boxShadow: "0 0 0 2px rgba(59,130,246,0.5)",
+                    }}
                     type="number"
                     name="price"
                     value={formData.price}
@@ -223,7 +239,10 @@ const EditProductForm = ({ product, onClose }) => {
                     Stock *
                   </label>
                   <motion.input
-                    whileFocus={{ scale: 1.01, boxShadow: "0 0 0 2px rgba(59,130,246,0.5)" }}
+                    whileFocus={{
+                      scale: 1.01,
+                      boxShadow: "0 0 0 2px rgba(59,130,246,0.5)",
+                    }}
                     type="number"
                     name="stock"
                     value={formData.stock}
@@ -239,7 +258,10 @@ const EditProductForm = ({ product, onClose }) => {
                   Category *
                 </label>
                 <motion.input
-                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 2px rgba(59,130,246,0.5)" }}
+                  whileFocus={{
+                    scale: 1.01,
+                    boxShadow: "0 0 0 2px rgba(59,130,246,0.5)",
+                  }}
                   type="text"
                   name="category"
                   value={formData.category}
@@ -254,7 +276,10 @@ const EditProductForm = ({ product, onClose }) => {
                   Brand
                 </label>
                 <motion.input
-                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 2px rgba(59,130,246,0.5)" }}
+                  whileFocus={{
+                    scale: 1.01,
+                    boxShadow: "0 0 0 2px rgba(59,130,246,0.5)",
+                  }}
                   type="text"
                   name="brand"
                   value={formData.brand}
@@ -268,7 +293,10 @@ const EditProductForm = ({ product, onClose }) => {
                   Description *
                 </label>
                 <motion.textarea
-                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 2px rgba(59,130,246,0.5)" }}
+                  whileFocus={{
+                    scale: 1.01,
+                    boxShadow: "0 0 0 2px rgba(59,130,246,0.5)",
+                  }}
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
@@ -283,7 +311,10 @@ const EditProductForm = ({ product, onClose }) => {
                   Thumbnail URL
                 </label>
                 <motion.input
-                  whileFocus={{ scale: 1.01, boxShadow: "0 0 0 2px rgba(59,130,246,0.5)" }}
+                  whileFocus={{
+                    scale: 1.01,
+                    boxShadow: "0 0 0 2px rgba(59,130,246,0.5)",
+                  }}
                   type="url"
                   name="thumbnail"
                   value={formData.thumbnail}
@@ -291,21 +322,21 @@ const EditProductForm = ({ product, onClose }) => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                 />
                 {formData.thumbnail && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="mt-2"
                   >
-                    <img 
-                      src={formData.thumbnail} 
-                      alt="Preview" 
+                    <img
+                      src={formData.thumbnail}
+                      alt="Preview"
                       className="h-20 w-20 object-cover rounded border"
                     />
                   </motion.div>
                 )}
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 variants={formFieldVariants}
                 className="flex gap-4 pt-4"
               >
@@ -325,16 +356,20 @@ const EditProductForm = ({ product, onClose }) => {
                     >
                       <motion.div
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
                         className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
                       />
                       Updating...
                     </motion.div>
                   ) : (
-                    'Update Product'
+                    "Update Product"
                   )}
                 </motion.button>
-                
+
                 <motion.button
                   variants={buttonVariants}
                   whileHover="hover"

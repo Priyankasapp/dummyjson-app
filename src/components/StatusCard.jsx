@@ -59,17 +59,14 @@ const StatsCards = () => {
   //   totalComments,
   // } = useProduct();
 
-  const {
-  totalProducts,
-  totalUsers,
-  totalPost,
-  totalComments,
-} = useSelector((state) => ({
-  totalProducts: state.products.totalProducts,
-  totalUsers: state.users.totalUsers,
-  totalPost: state.posts.totalPost,
-  totalComments: state.comments.totalComments,
-}));
+  const { totalProducts, totalUsers, totalPost, totalComments } = useSelector(
+    (state) => ({
+      totalProducts: state.products.totalProducts,
+      totalUsers: state.users.totalUsers,
+      totalPost: state.posts.totalPost,
+      totalComments: state.comments.totalComments,
+    }),
+  );
 
   const stats = [
     {

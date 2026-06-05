@@ -13,7 +13,7 @@ export const fetchProducts = createAsyncThunk(
   async ({ skip = 0, limit = 20 }) => {
     const response = await getAllProducts(skip, limit);
     return response.data;
-  }
+  },
 );
 
 // Delete Product
@@ -22,7 +22,7 @@ export const removeProduct = createAsyncThunk(
   async (id) => {
     await deleteProduct(id);
     return id;
-  }
+  },
 );
 
 // Edit Product
@@ -31,7 +31,7 @@ export const editProduct = createAsyncThunk(
   async ({ id, productData }) => {
     const response = await updateProduct(id, productData);
     return response.data;
-  }
+  },
 );
 
 const productSlice = createSlice({
@@ -68,16 +68,14 @@ const productSlice = createSlice({
       // Delete Product
       .addCase(removeProduct.fulfilled, (state, action) => {
         state.products = state.products.filter(
-          (product) => product.id !== action.payload
+          (product) => product.id !== action.payload,
         );
       })
 
       // Edit Product
       .addCase(editProduct.fulfilled, (state, action) => {
         state.products = state.products.map((product) =>
-          product.id === action.payload.id
-            ? action.payload
-            : product
+          product.id === action.payload.id ? action.payload : product,
         );
       });
   },

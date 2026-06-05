@@ -46,13 +46,13 @@ export default function Navbar() {
     const searchText = query.trim();
 
     if (!searchText) {
-    dispatch(clearSearch());
-    navigate("/search");
-    return;
-  }
+      dispatch(clearSearch());
+      navigate("/search");
+      return;
+    }
 
-     dispatch(searchAll(searchText));
-  navigate("/search");
+    dispatch(searchAll(searchText));
+    navigate("/search");
   };
 
   return (
@@ -105,7 +105,10 @@ export default function Navbar() {
             className="hidden md:flex items-center gap-1 rounded-2xl bg-slate-100 p-1"
             initial="hidden"
             animate="visible"
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.08 } },
+            }}
           >
             {links.map((link) => {
               const Icon = link.icon;

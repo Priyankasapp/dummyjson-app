@@ -1,28 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 // import { useProduct } from '../context/ProductContext'
 import { useSelector } from "react-redux";
-import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SearchResults = () => {
   // const { searchResults, searchQuery, isSearching } = useProduct()
-  const {
-  searchResults,
-  searchQuery,
-  isSearching,
-} = useSelector((state) => state.search);
+  const { searchResults, searchQuery, isSearching } = useSelector(
+    (state) => state.search,
+  );
   // Debug: Log the searchResults to see what's coming from Context
   useEffect(() => {
-    console.log('SearchResults rendered with:', { searchResults, searchQuery, isSearching })
-  }, [searchResults, searchQuery, isSearching])
+    console.log("SearchResults rendered with:", {
+      searchResults,
+      searchQuery,
+      isSearching,
+    });
+  }, [searchResults, searchQuery, isSearching]);
 
   // Safely extract results with fallbacks
-  const products = searchResults?.products || []
-  const users = searchResults?.users || []
-  const posts = searchResults?.posts || []
-  const comments = searchResults?.comments || []
+  const products = searchResults?.products || [];
+  const users = searchResults?.users || [];
+  const posts = searchResults?.posts || [];
+  const comments = searchResults?.comments || [];
 
-  const totalHits = products.length + users.length + posts.length + comments.length
+  const totalHits =
+    products.length + users.length + posts.length + comments.length;
 
   // Animation variants
   const containerVariants = {
@@ -34,7 +37,7 @@ const SearchResults = () => {
         delayChildren: 0.2,
       },
     },
-  }
+  };
 
   const headerVariants = {
     hidden: { opacity: 0, y: -30 },
@@ -47,7 +50,7 @@ const SearchResults = () => {
         damping: 20,
       },
     },
-  }
+  };
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -62,7 +65,7 @@ const SearchResults = () => {
         staggerChildren: 0.05,
       },
     },
-  }
+  };
 
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.9, y: 20 },
@@ -88,7 +91,7 @@ const SearchResults = () => {
     tap: {
       scale: 0.98,
     },
-  }
+  };
 
   const emptyStateVariants = {
     hidden: { opacity: 0, scale: 0.9 },
@@ -101,7 +104,7 @@ const SearchResults = () => {
         damping: 20,
       },
     },
-  }
+  };
 
   const loadingVariants = {
     animate: {
@@ -112,7 +115,7 @@ const SearchResults = () => {
         ease: "linear",
       },
     },
-  }
+  };
 
   const tagVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -131,7 +134,7 @@ const SearchResults = () => {
         stiffness: 400,
       },
     },
-  }
+  };
 
   if (isSearching) {
     return (
@@ -164,13 +167,13 @@ const SearchResults = () => {
           </div>
         </motion.div>
       </motion.section>
-    )
+    );
   }
 
   return (
     <AnimatePresence mode="wait">
       <motion.section
-        key={searchQuery || 'empty'}
+        key={searchQuery || "empty"}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -181,7 +184,7 @@ const SearchResults = () => {
           variants={headerVariants}
           className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
         >
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -189,7 +192,7 @@ const SearchResults = () => {
           >
             Search results
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -197,7 +200,7 @@ const SearchResults = () => {
           >
             {searchQuery && searchQuery.trim()
               ? `Showing results for "${searchQuery}"`
-              : 'Type a query into the search bar to search products, users, posts, and comments.'}
+              : "Type a query into the search bar to search products, users, posts, and comments."}
           </motion.p>
         </motion.div>
 
@@ -242,15 +245,12 @@ const SearchResults = () => {
             </motion.p>
           </motion.div>
         ) : (
-          <motion.div 
-            variants={containerVariants}
-            className="space-y-12"
-          >
+          <motion.div variants={containerVariants} className="space-y-12">
             {/* Products Section */}
             {products.length > 0 && (
               <motion.div variants={sectionVariants}>
                 <motion.div className="mb-4 flex items-center justify-between">
-                  <motion.h2 
+                  <motion.h2
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     className="text-2xl font-semibold text-slate-900"
@@ -261,12 +261,15 @@ const SearchResults = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Link to="/product" className="text-sm text-blue-600 hover:text-blue-800">
+                    <Link
+                      to="/product"
+                      className="text-sm text-blue-600 hover:text-blue-800"
+                    >
                       View all products →
                     </Link>
                   </motion.div>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   variants={containerVariants}
                   className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
                 >
@@ -278,11 +281,11 @@ const SearchResults = () => {
                       whileTap="tap"
                       custom={index}
                     >
-                      <Link 
+                      <Link
                         to={`/product/${product.id}`}
                         className="block rounded-3xl border border-slate-200 p-5 shadow-sm bg-white hover:shadow-md transition-all hover:border-slate-300"
                       >
-                        <motion.h3 
+                        <motion.h3
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -290,7 +293,7 @@ const SearchResults = () => {
                         >
                           {product.title}
                         </motion.h3>
-                        <motion.p 
+                        <motion.p
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 + 0.1 }}
@@ -298,27 +301,34 @@ const SearchResults = () => {
                         >
                           {product.description}
                         </motion.p>
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 + 0.2 }}
                           className="mt-4 flex items-center justify-between"
                         >
-                          <p className="text-sm text-slate-500">Category: {product.category}</p>
-                          <p className="font-semibold text-slate-900">${product.price}</p>
+                          <p className="text-sm text-slate-500">
+                            Category: {product.category}
+                          </p>
+                          <p className="font-semibold text-slate-900">
+                            ${product.price}
+                          </p>
                         </motion.div>
                       </Link>
                     </motion.div>
                   ))}
                 </motion.div>
                 {products.length > 6 && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
                     className="mt-4 text-center"
                   >
-                    <Link to="/product" className="text-blue-600 hover:text-blue-800 text-sm">
+                    <Link
+                      to="/product"
+                      className="text-blue-600 hover:text-blue-800 text-sm"
+                    >
                       + {products.length - 6} more products
                     </Link>
                   </motion.div>
@@ -330,7 +340,7 @@ const SearchResults = () => {
             {users.length > 0 && (
               <motion.div variants={sectionVariants}>
                 <div className="mb-4 flex items-center justify-between">
-                  <motion.h2 
+                  <motion.h2
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     className="text-2xl font-semibold text-slate-900"
@@ -341,7 +351,10 @@ const SearchResults = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Link to="/user" className="text-sm text-blue-600 hover:text-blue-800">
+                    <Link
+                      to="/user"
+                      className="text-sm text-blue-600 hover:text-blue-800"
+                    >
                       View all users →
                     </Link>
                   </motion.div>
@@ -354,11 +367,11 @@ const SearchResults = () => {
                       whileHover="hover"
                       whileTap="tap"
                     >
-                      <Link 
+                      <Link
                         to={`/user/${user.id}`}
                         className="block rounded-3xl border border-slate-200 p-5 shadow-sm bg-white hover:shadow-md transition-all hover:border-slate-300"
                       >
-                        <motion.h3 
+                        <motion.h3
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -366,7 +379,7 @@ const SearchResults = () => {
                         >
                           {user.firstName} {user.lastName}
                         </motion.h3>
-                        <motion.p 
+                        <motion.p
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 + 0.1 }}
@@ -374,7 +387,7 @@ const SearchResults = () => {
                         >
                           @{user.username}
                         </motion.p>
-                        <motion.p 
+                        <motion.p
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 + 0.2 }}
@@ -393,7 +406,7 @@ const SearchResults = () => {
             {posts.length > 0 && (
               <motion.div variants={sectionVariants}>
                 <div className="mb-4 flex items-center justify-between">
-                  <motion.h2 
+                  <motion.h2
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     className="text-2xl font-semibold text-slate-900"
@@ -404,7 +417,10 @@ const SearchResults = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Link to="/post" className="text-sm text-blue-600 hover:text-blue-800">
+                    <Link
+                      to="/post"
+                      className="text-sm text-blue-600 hover:text-blue-800"
+                    >
                       View all posts →
                     </Link>
                   </motion.div>
@@ -417,11 +433,11 @@ const SearchResults = () => {
                       whileHover="hover"
                       whileTap="tap"
                     >
-                      <Link 
+                      <Link
                         to={`/post/${post.id}`}
                         className="block rounded-3xl border border-slate-200 p-5 shadow-sm bg-white hover:shadow-md transition-all hover:border-slate-300"
                       >
-                        <motion.h3 
+                        <motion.h3
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -429,7 +445,7 @@ const SearchResults = () => {
                         >
                           {post.title}
                         </motion.h3>
-                        <motion.p 
+                        <motion.p
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 + 0.1 }}
@@ -438,7 +454,7 @@ const SearchResults = () => {
                           {post.body}
                         </motion.p>
                         {post.tags && post.tags.length > 0 && (
-                          <motion.div 
+                          <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: index * 0.05 + 0.2 }}
@@ -467,7 +483,7 @@ const SearchResults = () => {
             {comments.length > 0 && (
               <motion.div variants={sectionVariants}>
                 <div className="mb-4 flex items-center justify-between">
-                  <motion.h2 
+                  <motion.h2
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     className="text-2xl font-semibold text-slate-900"
@@ -483,11 +499,11 @@ const SearchResults = () => {
                       whileHover="hover"
                       whileTap="tap"
                     >
-                      <Link 
+                      <Link
                         to={`/post/${comment.postId}`}
                         className="block rounded-3xl border border-slate-200 p-5 shadow-sm bg-white hover:shadow-md transition-all hover:border-slate-300"
                       >
-                        <motion.p 
+                        <motion.p
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 }}
@@ -495,16 +511,20 @@ const SearchResults = () => {
                         >
                           {comment.body}
                         </motion.p>
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: index * 0.05 + 0.1 }}
                           className="mt-4 flex items-center justify-between"
                         >
                           <p className="text-sm font-medium text-slate-900">
-                            {comment.user?.fullName || comment.user?.username || 'Anonymous'}
+                            {comment.user?.fullName ||
+                              comment.user?.username ||
+                              "Anonymous"}
                           </p>
-                          <p className="text-xs text-slate-500">Post #{comment.postId}</p>
+                          <p className="text-xs text-slate-500">
+                            Post #{comment.postId}
+                          </p>
                         </motion.div>
                       </Link>
                     </motion.div>
@@ -516,7 +536,7 @@ const SearchResults = () => {
         )}
       </motion.section>
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default SearchResults
+export default SearchResults;

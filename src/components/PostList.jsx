@@ -8,12 +8,9 @@ const PostList = () => {
   // const { post, loading, error, fetchPost, totalPost } = useProduct();
   const dispatch = useDispatch();
 
-const {
-  posts,
-  loading,
-  error,
-  totalPost,
-} = useSelector((state) => state.posts);
+  const { posts, loading, error, totalPost } = useSelector(
+    (state) => state.posts,
+  );
 
   const [skip, setSkip] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -25,13 +22,13 @@ const {
   // }, [skip]);
 
   useEffect(() => {
-  dispatch(
-    fetchPosts({
-      skip,
-      limit,
-    })
-  );
-}, [dispatch, skip, limit]);
+    dispatch(
+      fetchPosts({
+        skip,
+        limit,
+      }),
+    );
+  }, [dispatch, skip, limit]);
 
   const openModal = (post) => {
     setSelectedPost(post);
@@ -452,7 +449,8 @@ const {
                       transition={{ delay: 0.5 }}
                       className="mt-4 text-sm text-gray-400 text-center border-t pt-4"
                     >
-                      Post ID: {selectedPost.id} | User ID: {selectedPost.userId}
+                      Post ID: {selectedPost.id} | User ID:{" "}
+                      {selectedPost.userId}
                     </motion.div>
                   )}
                 </motion.div>

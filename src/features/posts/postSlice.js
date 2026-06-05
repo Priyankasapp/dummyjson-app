@@ -8,7 +8,7 @@ export const fetchPosts = createAsyncThunk(
   async ({ skip = 0, limit = 20 }) => {
     const response = await getAllPosts(skip, limit);
     return response.data;
-  }
+  },
 );
 
 const postSlice = createSlice({

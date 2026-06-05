@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import { useProduct } from "../context/ProductContext";
-import {useSelector, useDispatch} from "react-redux"
-import {fetchProducts, removeProduct, editProduct} from "../features/products/productSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  fetchProducts,
+  removeProduct,
+  editProduct,
+} from "../features/products/productSlice";
 import EditProductForm from "./EditForm";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ProductList = () => {
-
   const dispatch = useDispatch();
 
   // const {
@@ -18,12 +21,9 @@ const ProductList = () => {
   //   removeProduct,
   //   editProduct,
   // } = useProduct();
-  const {
-  products,
-  loading,
-  error,
-  totalProducts,
-} = useSelector((state) => state.products);
+  const { products, loading, error, totalProducts } = useSelector(
+    (state) => state.products,
+  );
 
   const [skip, setSkip] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -36,8 +36,8 @@ const ProductList = () => {
   // }, [skip]);
 
   useEffect(() => {
-  dispatch(fetchProducts({ skip, limit }));
-}, [dispatch, skip, limit]);
+    dispatch(fetchProducts({ skip, limit }));
+  }, [dispatch, skip, limit]);
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -73,25 +73,25 @@ const ProductList = () => {
     // fetchProducts(skip, limit);
     dispatch(fetchProducts({ skip, limit }));
   };
-  
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product ?")) {
-      // await removeProduct(id); 
+      // await removeProduct(id);
       await dispatch(removeProduct(id));
     }
   };
 
   console.log(products);
-  
+
   if (loading && products.length === 0) {
     return (
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="flex justify-center items-center min-h-screen"
       >
-        <motion.div 
+        <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           className="rounded-full h-12 w-12 border-b-2 border-blue-600"
@@ -99,9 +99,9 @@ const ProductList = () => {
       </motion.div>
     );
   }
-  
+
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -118,7 +118,7 @@ const ProductList = () => {
         </motion.h1>
 
         {error && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
@@ -127,9 +127,9 @@ const ProductList = () => {
             Error: {error}
           </motion.div>
         )}
-        
+
         {/* Products Grid */}
-        <motion.div 
+        <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
@@ -141,16 +141,16 @@ const ProductList = () => {
                 initial={{ opacity: 0, scale: 0.8, y: 30 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.6, y: -30 }}
-                transition={{ 
+                transition={{
                   duration: 0.4,
                   type: "spring",
                   stiffness: 300,
-                  damping: 20
+                  damping: 20,
                 }}
-                whileHover={{ 
-                  y: -8, 
+                whileHover={{
+                  y: -8,
                   scale: 1.02,
-                  transition: { duration: 0.2 }
+                  transition: { duration: 0.2 },
                 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => openModal(product)}
@@ -169,9 +169,9 @@ const ProductList = () => {
                     />
                   )}
                 </motion.div>
-                
+
                 <div className="p-4">
-                  <motion.h3 
+                  <motion.h3
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
@@ -179,8 +179,8 @@ const ProductList = () => {
                   >
                     {product.title}
                   </motion.h3>
-                  
-                  <motion.p 
+
+                  <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.35 }}
@@ -188,8 +188,8 @@ const ProductList = () => {
                   >
                     {product.description}
                   </motion.p>
-                  
-                  <motion.div 
+
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
@@ -203,7 +203,7 @@ const ProductList = () => {
                     </span>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.45 }}
@@ -213,7 +213,7 @@ const ProductList = () => {
                     <span>Stock: {product.stock}</span>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
@@ -247,7 +247,7 @@ const ProductList = () => {
             ))}
           </AnimatePresence>
         </motion.div>
-        
+
         {/* Edit Form Modal */}
         <AnimatePresence>
           {editingProduct && (
@@ -257,7 +257,10 @@ const ProductList = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <EditProductForm product={editingProduct} onClose={handleCloseEdit} />
+              <EditProductForm
+                product={editingProduct}
+                onClose={handleCloseEdit}
+              />
             </motion.div>
           )}
         </AnimatePresence>
@@ -265,34 +268,33 @@ const ProductList = () => {
         {/* Product Details Modal */}
         <AnimatePresence>
           {isModalOpen && selectedProduct && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-50 overflow-y-auto"
             >
               {/* Backdrop */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/50" 
+                className="fixed inset-0 bg-black/50"
                 onClick={closeModal}
               />
 
               {/* Modal */}
               <div className="flex min-h-full items-center justify-center p-4">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.8, y: 50 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.8, y: 50 }}
-                  transition={{ 
-                    type: "spring", 
-                    damping: 25, 
-                    stiffness: 300 
+                  transition={{
+                    type: "spring",
+                    damping: 25,
+                    stiffness: 300,
                   }}
                   className="relative bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto flex flex-col items-center mb-6"
-                 
                 >
                   {/* Close Button */}
                   <motion.button
@@ -317,13 +319,13 @@ const ProductList = () => {
                     />
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                     className="p-6"
                   >
-                    <motion.h2 
+                    <motion.h2
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 }}
@@ -332,7 +334,7 @@ const ProductList = () => {
                       {selectedProduct.title}
                     </motion.h2>
 
-                    <motion.p 
+                    <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.35 }}
@@ -341,19 +343,26 @@ const ProductList = () => {
                       {selectedProduct.description}
                     </motion.p>
 
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.4 }}
                       className="grid grid-cols-2 gap-4 mb-6"
                     >
                       {[
-                        { label: "Price", value: `$${selectedProduct.price}`, color: "text-blue-600" },
+                        {
+                          label: "Price",
+                          value: `$${selectedProduct.price}`,
+                          color: "text-blue-600",
+                        },
                         { label: "Category", value: selectedProduct.category },
-                        { label: "Rating", value: `⭐ ${selectedProduct.rating}` },
+                        {
+                          label: "Rating",
+                          value: `⭐ ${selectedProduct.rating}`,
+                        },
                         { label: "Stock", value: selectedProduct.stock },
                         { label: "Brand", value: selectedProduct.brand },
-                        { label: "SKU", value: selectedProduct.sku }
+                        { label: "SKU", value: selectedProduct.sku },
                       ].map((item, index) => (
                         <motion.div
                           key={item.label}
@@ -361,8 +370,12 @@ const ProductList = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.45 + index * 0.05 }}
                         >
-                          <p className="font-semibold text-gray-700">{item.label}</p>
-                          <p className={`text-lg ${item.color || 'text-gray-800'}`}>
+                          <p className="font-semibold text-gray-700">
+                            {item.label}
+                          </p>
+                          <p
+                            className={`text-lg ${item.color || "text-gray-800"}`}
+                          >
                             {item.value}
                           </p>
                         </motion.div>

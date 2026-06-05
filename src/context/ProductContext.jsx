@@ -42,7 +42,7 @@ export const ProductContextProvider = ({ children }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchProducts = async (skip = 0, limit=20) => {
+  const fetchProducts = async (skip = 0, limit = 20) => {
     try {
       setLoading(true);
       setError(null);
@@ -100,7 +100,7 @@ export const ProductContextProvider = ({ children }) => {
   };
 
   //   User Section
-  const fetchUsers = async (skip = 0, limit=20) => {
+  const fetchUsers = async (skip = 0, limit = 20) => {
     try {
       setLoading(true);
       setError(null);
@@ -115,7 +115,7 @@ export const ProductContextProvider = ({ children }) => {
   };
 
   //Post Section
-  const fetchPost = async (skip = 0, limit=20) => {
+  const fetchPost = async (skip = 0, limit = 20) => {
     try {
       setLoading(true);
       setError(null);
@@ -129,7 +129,7 @@ export const ProductContextProvider = ({ children }) => {
     }
   };
 
-  const fetchComments = async (skip = 0, limit=20) => {
+  const fetchComments = async (skip = 0, limit = 20) => {
     try {
       setLoading(true);
       setError(null);
@@ -154,7 +154,9 @@ export const ProductContextProvider = ({ children }) => {
     setSearchQuery(query);
     const lowerQuery = query.toLowerCase();
     const includesQuery = (value) =>
-      String(value || "").toLowerCase().includes(lowerQuery);
+      String(value || "")
+        .toLowerCase()
+        .includes(lowerQuery);
 
     try {
       // Fetch all data for searching
@@ -221,7 +223,7 @@ export const ProductContextProvider = ({ children }) => {
   };
 
   const value = {
-     products,
+    products,
     users,
     post,
     loading,
@@ -233,7 +235,7 @@ export const ProductContextProvider = ({ children }) => {
     removeProduct,
     editProduct,
     fetchUsers,
-    fetchPost, 
+    fetchPost,
     totalPost,
     comments,
     totalComments,
@@ -243,7 +245,7 @@ export const ProductContextProvider = ({ children }) => {
     isSearching,
     searchQuery,
     searchAll,
-    clearSearch
+    clearSearch,
   };
   return (
     <ProductContext.Provider value={value}>{children}</ProductContext.Provider>

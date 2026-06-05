@@ -8,7 +8,7 @@ export const fetchComments = createAsyncThunk(
   async ({ skip = 0, limit = 20 }) => {
     const response = await getAllCommennts(skip, limit);
     return response.data;
-  }
+  },
 );
 
 const commentSlice = createSlice({

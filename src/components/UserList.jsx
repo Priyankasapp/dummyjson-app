@@ -8,12 +8,9 @@ const UserList = () => {
   // const { users, loading, error, totalUsers, fetchUsers } = useProduct();
   const dispatch = useDispatch();
 
-const {
-  users,
-  loading,
-  error,
-  totalUsers,
-} = useSelector((state) => state.users);
+  const { users, loading, error, totalUsers } = useSelector(
+    (state) => state.users,
+  );
 
   const [skip, setSkip] = useState(0);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -26,13 +23,13 @@ const {
   // }, [skip]);
 
   useEffect(() => {
-  dispatch(
-    fetchUsers({
-      skip,
-      limit,
-    })
-  );
-}, [dispatch, skip, limit]);
+    dispatch(
+      fetchUsers({
+        skip,
+        limit,
+      }),
+    );
+  }, [dispatch, skip, limit]);
 
   const openModal = (user) => {
     setSelectedUser(user);
@@ -285,7 +282,10 @@ const {
                     { label: "University", value: user.university },
                     { label: "Company", value: user.company?.name },
                     { label: "Department", value: user.company?.department },
-                    { label: "Address", value: `${user.address?.city}, ${user.address?.state}` },
+                    {
+                      label: "Address",
+                      value: `${user.address?.city}, ${user.address?.state}`,
+                    },
                   ].map((item, index) => (
                     <motion.p
                       key={item.label}
@@ -443,7 +443,10 @@ const {
 
                     {[
                       { label: "Company", value: selectedUser.company?.name },
-                      { label: "Department", value: selectedUser.company?.department },
+                      {
+                        label: "Department",
+                        value: selectedUser.company?.department,
+                      },
                       { label: "Title", value: selectedUser.company?.title },
                     ].map((item, index) => (
                       <motion.p
@@ -485,7 +488,8 @@ const {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.75 }}
                     >
-                      {selectedUser.address?.city}, {selectedUser.address?.state}
+                      {selectedUser.address?.city},{" "}
+                      {selectedUser.address?.state}
                     </motion.p>
 
                     <motion.p

@@ -236,7 +236,11 @@ const ProductDetails = () => {
               className="mt-6 grid grid-cols-2 gap-4 text-sm"
             >
               {[
-                { label: "Price", value: `$${product.price}`, color: "text-blue-700" },
+                {
+                  label: "Price",
+                  value: `$${product.price}`,
+                  color: "text-blue-700",
+                },
                 { label: "Category", value: product.category },
                 { label: "Rating", value: `⭐ ${product.rating}` },
                 { label: "Stock", value: product.stock },
@@ -255,7 +259,7 @@ const ProductDetails = () => {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.4 + index * 0.05 }}
-                    className={`text-lg font-medium ${detail.color || 'text-gray-800'}`}
+                    className={`text-lg font-medium ${detail.color || "text-gray-800"}`}
                   >
                     {detail.value}
                   </motion.p>

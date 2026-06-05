@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 // import { useProduct } from "../context/ProductContext";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  fetchComments,
-} from "../features/comments/commentSlice";
+import { fetchComments } from "../features/comments/commentSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CommentList = () => {
@@ -18,14 +16,9 @@ const CommentList = () => {
 
   const dispatch = useDispatch();
 
-const {
-  loading,
-  error,
-  comments,
-  totalComments,
-} = useSelector(
-  (state) => state.comments
-);
+  const { loading, error, comments, totalComments } = useSelector(
+    (state) => state.comments,
+  );
 
   const [skip, setSkip] = useState(0);
   const [selectedComment, setSelectedComment] = useState(null);
@@ -37,13 +30,13 @@ const {
   // }, [skip]);
 
   useEffect(() => {
-  dispatch(
-    fetchComments({
-      skip,
-      limit,
-    })
-  );
-}, [dispatch, skip, limit]);
+    dispatch(
+      fetchComments({
+        skip,
+        limit,
+      }),
+    );
+  }, [dispatch, skip, limit]);
 
   const openModal = (comment) => {
     setSelectedComment(comment);
@@ -276,7 +269,9 @@ const {
                         transition={{ delay: 0.15 }}
                         className="text-xl font-semibold text-gray-900"
                       >
-                        {comment.user?.fullName || comment.user?.username || 'Unknown User'}
+                        {comment.user?.fullName ||
+                          comment.user?.username ||
+                          "Unknown User"}
                       </motion.h2>
                       {comment.user?.username && (
                         <motion.p
@@ -327,10 +322,10 @@ const {
                     className="mt-5 flex flex-wrap gap-3 text-sm text-gray-500"
                   >
                     <motion.span whileHover={{ scale: 1.05 }}>
-                      User ID: {comment.user?.id ?? '—'}
+                      User ID: {comment.user?.id ?? "—"}
                     </motion.span>
                     <motion.span whileHover={{ scale: 1.05 }}>
-                      Post ID: {comment.postId ?? '—'}
+                      Post ID: {comment.postId ?? "—"}
                     </motion.span>
                   </motion.div>
                 </motion.article>
@@ -453,10 +448,26 @@ const {
                     className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-b py-4"
                   >
                     {[
-                      { label: "Likes", value: selectedComment.likes || 0, color: "text-blue-600" },
-                      { label: "Comment ID", value: selectedComment.id, color: "text-green-600" },
-                      { label: "Post ID", value: selectedComment.postId, color: "text-purple-600" },
-                      { label: "User ID", value: selectedComment.user?.id || "-", color: "text-orange-600" },
+                      {
+                        label: "Likes",
+                        value: selectedComment.likes || 0,
+                        color: "text-blue-600",
+                      },
+                      {
+                        label: "Comment ID",
+                        value: selectedComment.id,
+                        color: "text-green-600",
+                      },
+                      {
+                        label: "Post ID",
+                        value: selectedComment.postId,
+                        color: "text-purple-600",
+                      },
+                      {
+                        label: "User ID",
+                        value: selectedComment.user?.id || "-",
+                        color: "text-orange-600",
+                      },
                     ].map((stat, index) => (
                       <motion.div
                         key={stat.label}
@@ -503,8 +514,16 @@ const {
 
                     <motion.div className="space-y-2 text-gray-600">
                       {[
-                        { label: "User Name", value: selectedComment.user?.fullName || selectedComment.user?.username },
-                        { label: "Username", value: `@${selectedComment.user?.username}` },
+                        {
+                          label: "User Name",
+                          value:
+                            selectedComment.user?.fullName ||
+                            selectedComment.user?.username,
+                        },
+                        {
+                          label: "Username",
+                          value: `@${selectedComment.user?.username}`,
+                        },
                         { label: "Comment ID", value: selectedComment.id },
                         { label: "Post ID", value: selectedComment.postId },
                         { label: "Total Likes", value: selectedComment.likes },
@@ -516,7 +535,8 @@ const {
                           transition={{ delay: 0.65 + index * 0.05 }}
                           whileHover={{ x: 5 }}
                         >
-                          <strong>{detail.label}:</strong> {detail.value || "N/A"}
+                          <strong>{detail.label}:</strong>{" "}
+                          {detail.value || "N/A"}
                         </motion.p>
                       ))}
                     </motion.div>

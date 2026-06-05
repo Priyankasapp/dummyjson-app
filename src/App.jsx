@@ -18,7 +18,6 @@ import ProductDetails from "./components/ProductDetails";
 
 import Lenis from "lenis";
 
-
 const App = () => {
   const dispatch = useDispatch();
 
@@ -29,7 +28,7 @@ const App = () => {
     dispatch(fetchComments({ skip: 0, limit: 20 }));
   }, [dispatch]);
 
-    useEffect(() => {
+  useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
       smoothWheel: true,
@@ -48,24 +47,22 @@ const App = () => {
   return (
     <div className="min-h-screen bg-slate-100">
       <Navbar />
-      <main className='max-w-7xl mx-auto px-4 md:px-6 py-6'>
-        <StatusCard/>
+      <main className="max-w-7xl mx-auto px-4 md:px-6 py-6">
+        <StatusCard />
         <div className="mt-8">
-           <Routes> 
-        <Route path='/' element={<Product/>} />
-        <Route path='/product' element={<Product/>} />
-        <Route path='/product/:productId' element={<ProductDetails />} />
-        <Route path='/user' element={<User />} />
-        <Route path='/post' element={<Post />} />
-        <Route path='/comments' element={<Comments />} />
-        <Route path='/search' element={<SearchResults />} />
-      </Routes>
+          <Routes>
+            <Route path="/" element={<Product />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/post" element={<Post />} />
+            <Route path="/comments" element={<Comments />} />
+            <Route path="/search" element={<SearchResults />} />
+          </Routes>
         </div>
-     
       </main>
-      
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
