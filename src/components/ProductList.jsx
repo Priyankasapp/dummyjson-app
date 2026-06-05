@@ -274,7 +274,8 @@ const ProductList = () => {
                     damping: 25, 
                     stiffness: 300 
                   }}
-                  className="relative bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+                  className="relative bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto flex flex-col items-center mb-6"
+                 
                 >
                   {/* Close Button */}
                   <motion.button
