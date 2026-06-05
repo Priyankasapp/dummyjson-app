@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import { useProduct } from "../context/ProductContext";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchComments } from "../features/comments/commentSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CommentList = () => {
-  // const {
-  //   loading,
-  //   error,
-  //   comments,
-  //   totalComments,
-  //   fetchComments,
-  // } = useProduct();
+
 
   const dispatch = useDispatch();
 
@@ -25,9 +18,7 @@ const CommentList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const limit = 20;
 
-  // useEffect(() => {
-  //   fetchComments(skip, limit);
-  // }, [skip]);
+
 
   useEffect(() => {
     dispatch(

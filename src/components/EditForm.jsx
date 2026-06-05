@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-// import { useProduct } from '../context/ProductContext';
 import { useDispatch, useSelector } from "react-redux";
 import { editProduct } from "../features/products/productSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const EditProductForm = ({ product, onClose }) => {
-  // const { editProduct, loading } = useProduct();
+
   const dispatch = useDispatch();
 
   const { loading } = useSelector((state) => state.products);

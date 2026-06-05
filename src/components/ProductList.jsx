@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { useProduct } from "../context/ProductContext";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchProducts,
@@ -12,15 +11,6 @@ import { motion, AnimatePresence } from "framer-motion";
 const ProductList = () => {
   const dispatch = useDispatch();
 
-  // const {
-  //   products,
-  //   loading,
-  //   error,
-  //   totalProducts,
-  //   fetchProducts,
-  //   removeProduct,
-  //   editProduct,
-  // } = useProduct();
   const { products, loading, error, totalProducts } = useSelector(
     (state) => state.products,
   );
@@ -31,9 +21,7 @@ const ProductList = () => {
   const [limit] = useState(10);
   const [editingProduct, setEditingProduct] = useState(null);
 
-  // useEffect(() => {
-  //   fetchProducts(skip, limit);
-  // }, [skip]);
+
 
   useEffect(() => {
     dispatch(fetchProducts({ skip, limit }));
@@ -70,13 +58,13 @@ const ProductList = () => {
 
   const handleCloseEdit = () => {
     setEditingProduct(null);
-    // fetchProducts(skip, limit);
+
     dispatch(fetchProducts({ skip, limit }));
   };
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this product ?")) {
-      // await removeProduct(id);
+
       await dispatch(removeProduct(id));
     }
   };

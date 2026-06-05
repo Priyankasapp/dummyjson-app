@@ -5,7 +5,7 @@ import { fetchUsers } from "../features/users/userSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const UserList = () => {
-  // const { users, loading, error, totalUsers, fetchUsers } = useProduct();
+
   const dispatch = useDispatch();
 
   const { users, loading, error, totalUsers } = useSelector(
@@ -18,9 +18,7 @@ const UserList = () => {
 
   const limit = 20;
 
-  // useEffect(() => {
-  //   fetchUsers(skip, limit);
-  // }, [skip]);
+
 
   useEffect(() => {
     dispatch(

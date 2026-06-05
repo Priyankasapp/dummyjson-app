@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-// import { useProduct } from '../context/ProductContext'
+
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SearchResults = () => {
-  // const { searchResults, searchQuery, isSearching } = useProduct()
+
   const { searchResults, searchQuery, isSearching } = useSelector(
     (state) => state.search,
   );
-  // Debug: Log the searchResults to see what's coming from Context
+
   useEffect(() => {
     console.log("SearchResults rendered with:", {
       searchResults,

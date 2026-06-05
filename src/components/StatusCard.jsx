@@ -1,7 +1,6 @@
 import { Package, Users, FileText, MessageSquareText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-// import { useProduct } from "../context/ProductContext";
 import { useSelector } from "react-redux";
 
 const AnimatedCount = ({ value }) => {
@@ -52,12 +51,7 @@ const cardVariants = {
 };
 
 const StatsCards = () => {
-  // const {
-  //   totalProducts,
-  //   totalUsers,
-  //   totalPost,
-  //   totalComments,
-  // } = useProduct();
+
 
   const { totalProducts, totalUsers, totalPost, totalComments } = useSelector(
     (state) => ({

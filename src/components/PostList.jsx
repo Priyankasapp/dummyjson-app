@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../features/posts/postSlice";
-// import { useProduct } from "../context/ProductContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PostList = () => {
-  // const { post, loading, error, fetchPost, totalPost } = useProduct();
+
   const dispatch = useDispatch();
 
   const { posts, loading, error, totalPost } = useSelector(
@@ -17,9 +16,6 @@ const PostList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const limit = 20;
 
-  // useEffect(() => {
-  //   fetchPost(skip, limit);
-  // }, [skip]);
 
   useEffect(() => {
     dispatch(

@@ -10,9 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
-// import { useProduct } from "../context/ProductContext";
 import { useDispatch } from "react-redux";
-// import { searchAll, clearSearch } from "../features/search/searchSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
@@ -38,7 +36,6 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { searchAll, clearSearch } = useProduct();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -90,13 +87,7 @@ export default function Navbar() {
                 className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 pr-12 outline-none focus:border-violet-500"
               />
 
-              {/* <button
-                type="submit"
-                aria-label="Search"
-                className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200"
-              >
-                <Search size={18} aria-hidden="true" />
-              </button> */}
+            
             </form>
           </div>
 
